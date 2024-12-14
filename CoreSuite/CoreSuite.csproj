@@ -121,15 +121,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminContext.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\Modual.cs" />
-    <Compile Include="Models\ModualSection.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserAccessModual.cs" />
-    <Compile Include="Models\UserAccessModualSection.cs" />
-    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Areas\Admin\Models\AdminContext.cs" />
+    <Compile Include="Areas\Admin\Models\Department.cs" />
+    <Compile Include="Areas\Admin\Models\Modual.cs" />
+    <Compile Include="Areas\Admin\Models\ModualSection.cs" />
+    <Compile Include="Areas\Admin\Models\Role.cs" />
+    <Compile Include="Areas\Admin\Models\User.cs" />
+    <Compile Include="Areas\Admin\Models\UserAccessModual.cs" />
+    <Compile Include="Areas\Admin\Models\UserAccessModualSection.cs" />
+    <Compile Include="Areas\Admin\Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +149,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
