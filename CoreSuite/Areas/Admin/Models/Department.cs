@@ -7,11 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreSuite.Models
 {
-    [Table("Tbl_Department")]
+    
     public class Department
     {
         public int DepartmentId { get; set; }
         public string DepartmentTitle { get; set; }
+        public ICollection<User> Users { get; set; } // مجموعه کاربران
 
     }
 }

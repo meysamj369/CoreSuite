@@ -9,11 +9,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreSuite.Models
 {
-    [Table("Tbl_Role")]
+    
     public class Role
     {
         public int RoleId { get; set; }
         public string RoleTitle { get; set; }
-
+        public ICollection<User> Users { get; set; } // مجموعه کاربران
     }
 }

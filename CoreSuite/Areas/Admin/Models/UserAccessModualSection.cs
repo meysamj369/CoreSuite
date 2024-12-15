@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreSuite.Models
 {
-    [Table("Tbl_UserAccessModualSection")]
+    
     public class UserAccessModualSection
     {
         public int UserAccessModulaSectionId { get; set; }
@@ -21,6 +21,10 @@ namespace CoreSuite.Models
         public bool CanCreate { get; set; }
         public bool CanEdit { get; set; }
         public bool CanDelete { get; set; }
+
+        public User User { get; set; }
+        public Modual Modual { get; set; }
+        public Section Section { get; set; }
 
 
     }

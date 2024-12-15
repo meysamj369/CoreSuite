@@ -124,7 +124,7 @@
     <Compile Include="Areas\Admin\Models\AdminContext.cs" />
     <Compile Include="Areas\Admin\Models\Department.cs" />
     <Compile Include="Areas\Admin\Models\Modual.cs" />
-    <Compile Include="Areas\Admin\Models\ModualSection.cs" />
+    <Compile Include="Areas\Admin\Models\Section.cs" />
     <Compile Include="Areas\Admin\Models\Role.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
     <Compile Include="Areas\Admin\Models\UserAccessModual.cs" />

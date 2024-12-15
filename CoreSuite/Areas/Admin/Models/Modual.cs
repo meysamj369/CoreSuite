@@ -8,10 +8,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreSuite.Models
 {
-    [Table("Tbl_Moduals")]
+   
     public class Modual
     {
         public int ModualId { get; set; }
         public string ModualName { get; set; }
+
+        public ICollection<UserAccessModual> UserAccessModuals { get; set; } // لیست کاربران ماژول
+
+        public ICollection<Section> Sections { get; set; } // لیستی از سکشنها
+
+        public ICollection<UserAccessModualSection> UserAccessModualSections { get; set; }
     }
 }

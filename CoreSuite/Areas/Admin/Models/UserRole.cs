@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreSuite.Models
 {
-    [Table("Tbl_UserRole")]
+   
     public class UserRole
     {
         public int UserRoleId { get; set; }
