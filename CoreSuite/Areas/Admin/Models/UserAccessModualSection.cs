@@ -16,11 +16,11 @@ namespace CoreSuite.Models
         public int UserId { get; set; }
         public int ModualId { get; set; }
         public string SectionCode { get; set; }
-        public bool CanEnter { get; set; }
-        public bool CanRead { get; set; }
-        public bool CanCreate { get; set; }
-        public bool CanEdit { get; set; }
-        public bool CanDelete { get; set; }
+        public bool? CanEnter { get; set; }
+        public bool? CanRead { get; set; }
+        public bool? CanCreate { get; set; }
+        public bool? CanEdit { get; set; }
+        public bool? CanDelete { get; set; }
 
         public User User { get; set; }
         public Modual Modual { get; set; }

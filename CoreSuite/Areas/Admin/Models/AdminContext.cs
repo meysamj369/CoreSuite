@@ -32,12 +32,13 @@ namespace CoreSuite.Models
 
                 modelBuilder.Entity<User>()
                     .HasKey(u => u.UserId)
-                    .Property(u => u.Name);
+                    .Property(u => u.Name)
+                    .HasMaxLength(50);
 
-                modelBuilder.Entity<User>()
+            modelBuilder.Entity<User>()
                     .Property(u => u.Family)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(50);
 
                 modelBuilder.Entity<User>()
                     .Property(u => u.UserName)
@@ -125,40 +126,45 @@ namespace CoreSuite.Models
                 modelBuilder.Entity<Modual>()
                     .ToTable("Tbl_Modual");
 
-                #endregion
+            #endregion
 
-                #region Section Table
+            #region Section Table
 
-                modelBuilder.Entity<Section>()
-                    .HasKey(s => s.SectionCode);
+            modelBuilder.Entity<Section>()
+            .HasKey(s => s.SectionCode); // تعریف SectionCode به عنوان کلید اصلی
 
-                modelBuilder.Entity<Section>()
-                    .Property(s => s.SectionCode)
-                    .HasMaxLength(50)
-                    .IsRequired();
+            modelBuilder.Entity<Section>()
+                .Property(s => s.SectionCode)
+                .HasMaxLength(50) // طول ستون
+                .IsRequired();    // مقدار اجباری
 
-                modelBuilder.Entity<Section>()
-                    .Property(s => s.SectionName)
-                    .HasMaxLength(50)
-                    .IsRequired();
+            modelBuilder.Entity<Section>()
+                .Property(s => s.SectionId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); // مقدار خودکار (Identity)
 
-                modelBuilder.Entity<Section>()
-                    .Property(s => s.ModualId)
-                    .IsRequired();
+            modelBuilder.Entity<Section>()
+                .Property(s => s.SectionName)
+                .HasMaxLength(50) // طول ستون
+                .IsRequired();    // مقدار اجباری
 
-                modelBuilder.Entity<Section>()
-                    .HasRequired(s => s.Modual)
-                    .WithMany(m => m.Sections)
-                    .HasForeignKey(s => s.ModualId);
+            modelBuilder.Entity<Section>()
+                .Property(s => s.ModualId)
+                .IsRequired();    // مقدار اجباری
 
-                modelBuilder.Entity<Section>()
-                    .ToTable("Tbl_Section");
+            modelBuilder.Entity<Section>()
+                .HasRequired(s => s.Modual)
+                .WithMany(m => m.Sections)
+                .HasForeignKey(s => s.ModualId); // تعریف رابطه با ModualId
 
-                #endregion
+            modelBuilder.Entity<Section>()
+                .ToTable("Tbl_Section"); // نام جدول در پایگاه داده
 
-                #region UserAccessModual Table
 
-                modelBuilder.Entity<UserAccessModual>()
+            #endregion
+
+            #region UserAccessModual Table
+
+            modelBuilder.Entity<UserAccessModual>()
                     .HasKey(uam => uam.UserAccessModuleId);
 
                 modelBuilder.Entity<UserAccessModual>()
@@ -187,64 +193,73 @@ namespace CoreSuite.Models
                 modelBuilder.Entity<UserAccessModual>()
                     .ToTable("Tbl_UserAccessModual");
 
-                #endregion
+            #endregion
 
-                #region UserAccessModualSection Table
+         
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .HasKey(uams => uams.UserAccessModulaSectionId);
+            #region UserAccessModualSection Table
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.UserId)
-                    .IsRequired();
+            modelBuilder.Entity<UserAccessModualSection>()
+                .HasKey(uams => new { uams.UserId, uams.ModualId, uams.SectionCode }); // تعریف کلید ترکیبی
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.ModualId)
-                    .IsRequired();
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.UserAccessModulaSectionId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); // مقدار Auto Increment برای این ستون
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.SectionCode)
-                    .IsRequired();
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.UserId)
+                .IsRequired();
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.CanEnter);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.ModualId)
+                .IsRequired();
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.CanRead);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.SectionCode)
+                .IsRequired();
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.CanEdit);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.CanEnter);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.CanDelete);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.CanRead);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .Property(uams => uams.CanCreate);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.CanEdit);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .HasRequired(uams => uams.User)
-                    .WithMany(u => u.UserAccessModualSections)
-                    .HasForeignKey(uams => uams.UserId)
-                    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.CanDelete);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .HasRequired(uams => uams.Modual)
-                    .WithMany(m => m.UserAccessModualSections)
-                    .HasForeignKey(uams => uams.ModualId)
-                    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .Property(uams => uams.CanCreate);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .HasRequired(uams => uams.Section)
-                    .WithMany(s => s.UserAccessModualSections)
-                    .HasForeignKey(uams => uams.SectionCode)
-                    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .HasRequired(uams => uams.User)
+                .WithMany(u => u.UserAccessModualSections)
+                .HasForeignKey(uams => uams.UserId)
+                .WillCascadeOnDelete(false);
 
-                modelBuilder.Entity<UserAccessModualSection>()
-                    .ToTable("Tbl_UserAccessModualSection");
+            modelBuilder.Entity<UserAccessModualSection>()
+                .HasRequired(uams => uams.Modual)
+                .WithMany(m => m.UserAccessModualSections)
+                .HasForeignKey(uams => uams.ModualId)
+                .WillCascadeOnDelete(false);
 
-                #endregion
+            modelBuilder.Entity<UserAccessModualSection>()
+                .HasRequired(uams => uams.Section)
+                .WithMany(s => s.UserAccessModualSections)
+                .HasForeignKey(uams => uams.SectionCode)
+                .WillCascadeOnDelete(false);
 
-                base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserAccessModualSection>()
+                .ToTable("Tbl_UserAccessModualSection");
+
+            #endregion
+
+
+          
+
+            base.OnModelCreating(modelBuilder);
             }
         }
     }

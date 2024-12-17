@@ -25,7 +25,7 @@ namespace CoreSuite.Models
        
         public string RePassword { get; set; }
       
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
     
         public DateTime RegDate { get; set; }
      
